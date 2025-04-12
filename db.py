@@ -6,12 +6,12 @@ from dotenv import load_dotenv
 
 # Load MongoDB URI from .env
 load_dotenv()
-MONGO_URI = os.getenv("MONGODB_URI")
+MONGO_URI = os.getenv("MONGODB_URL")
 
 # Setup MongoDB
 client = MongoClient(MONGO_URI)
-db = client["whitecoat_ai"]
-reports = db["medical_reports"]
+db = client["WhiteCoatAI"]
+reports = db["MedicalReports"]
 
 # Save a new uploaded document
 def save_report(filename, raw_text, summary, parsed_results):

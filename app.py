@@ -202,7 +202,7 @@ Respond in a friendly, helpful tone.
                         bot_reply = response.text
 
                         add_chat(st.session_state.report_id, user_input, bot_reply)
-                        st.experimental_rerun()
+                        st.rerun()
 
 
 elif st.session_state.active_page == "History":
