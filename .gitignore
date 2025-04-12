@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Environment variables
+.env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Streamlit cache
+.streamlit/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VSCode and PyCharm project settings
+.vscode/
+.idea/
+
+# Logs and database
+*.log
+*.sqlite
+*.db
+
+# PyInstaller
+*.spec
+build/
+dist/
+
+# Test and temp files
+*.bak
+*.tmp
+*.swp
