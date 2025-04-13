@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 from datetime import datetime
 import io
-import pdfplumber
+import base64
 import os
 from dotenv import load_dotenv
 import google.generativeai as genai
@@ -24,16 +24,39 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Extract text from uploaded file
+# Extract text from uploaded file using Gemini
 def extract_text(file):
     if file.type == "application/pdf":
-        with pdfplumber.open(file) as pdf:
-            text = "\n".join(page.extract_text() or "" for page in pdf.pages)
+        # Read the PDF file and encode it as base64
+        pdf_bytes = file.getvalue()
+        base64_pdf = base64.b64encode(pdf_bytes).decode('utf-8')
+        
+        # Create a prompt for Gemini to extract text from the PDF
+        prompt = "Extract all text content from this PDF document. Format it clearly and preserve the structure."
+        
+        # Create parts with the PDF attachment
+        parts = [
+            {"text": prompt},
+            {
+                "inline_data": {
+                    "mime_type": "application/pdf",
+                    "data": base64_pdf
+                }
+            }
+        ]
+        
+        # Send to Gemini for text extraction
+        try:
+            response = model.generate_content(parts)
+            return response.text
+        except Exception as e:
+            st.error(f"Error extracting text with Gemini: {str(e)}")
+            return ""
     elif file.type == "text/plain":
         text = file.read().decode("utf-8")
+        return text
     else:
-        text = ""
-    return text
+        return ""
 
 # Custom CSS for styling
 st.markdown("""
@@ -100,7 +123,9 @@ elif st.session_state.active_page == "Upload Documents":
         raw_text = extract_text(uploaded_file)
         st.session_state.document_text = raw_text
         st.subheader("📄 Extracted Text Preview")
-        st.text_area("Extracted Content", value=raw_text[:3000], height=300)
+        # Replace text_area with markdown display
+        with st.expander("View extracted content", expanded=True):
+            st.markdown(raw_text[:3000])
         if raw_text.strip():
             st.subheader("🧠 Medical Summary (Gemini)")
             prompt = f"Summarize this medical report for a patient in simple language:\n\n{raw_text}"
