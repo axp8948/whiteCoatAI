@@ -204,11 +204,12 @@ elif st.session_state.active_page == "Chat":
                         </div>
                     """, unsafe_allow_html=True)
 
-            # Chat input
-            user_input = st.text_input("Type your question here...", key="chat_input")
+            # ✅ Use form for stable input+submit behavior
+            with st.form("chat_form", clear_on_submit=True):
+                user_input = st.text_input("Type your question here...", key="chat_input")
+                submitted = st.form_submit_button("Send")
 
-            if st.button("Send"):
-                if user_input:
+                if submitted and user_input.strip():
                     with st.spinner("Thinking..."):
                         prompt = f"""
 You are an AI medical assistant. Use the following information to answer in a patient-friendly way.
@@ -227,7 +228,9 @@ Respond in a friendly, helpful tone.
                         bot_reply = response.text
 
                         add_chat(st.session_state.report_id, user_input, bot_reply)
-                        st.rerun()
+
+                    # ✅ Input will auto-clear because of clear_on_submit=True
+                    st.rerun()
 
 
 elif st.session_state.active_page == "History":
