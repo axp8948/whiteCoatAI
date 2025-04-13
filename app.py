@@ -64,8 +64,8 @@ st.markdown("""
     .main { padding: 2rem; }
     .stButton>button { width: 100%; }
     .chat-message { padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem; display: flex; flex-direction: column; }
-    .chat-message.user { background-color: #e6f3ff; }
-    .chat-message.assistant { background-color: #f0f0f0; }
+    .chat-message.user { background-color: #000000; }
+    .chat-message.assistant { background-color: #000000; }
     .title-text { color: #2E86C1; font-size: 2.5rem; font-weight: bold; text-align: center; margin-bottom: 1rem; position:sticky; }
     .subtitle-text { color: #566573; text-align: center; margin-bottom: 2rem; }
     .feedback-box { background-color: #f8f9fa; padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1rem; }
