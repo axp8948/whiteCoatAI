@@ -45,3 +45,5 @@ An AI-powered medical analysis platform that transforms prescriptions, lab repor
 
 This is a prototype/demo application intended for educational and research purposes.  
 **Always consult a qualified healthcare provider for medical advice.**
+
+Here is the link to the website: https://whitecoatai-2xizuifvkdg64cgjvvk9kc.streamlit.app/
