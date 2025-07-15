@@ -3,6 +3,8 @@ import pandas as pd
 import plotly.express as px
 from datetime import datetime
 import io
+import logging
+logging.basicConfig(filename="error.log", level=logging.ERROR)
 import base64
 import os
 from dotenv import load_dotenv
@@ -50,6 +52,7 @@ def extract_text(file):
             response = model.generate_content(parts)
             return response.text
         except Exception as e:
+            logging.error("Gemini extraction error:", exc_info=True)
             st.error(f"Error extracting text with Gemini: {str(e)}")
             return ""
     elif file.type == "text/plain":
