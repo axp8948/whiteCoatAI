@@ -119,8 +119,8 @@ elif st.session_state.active_page == "Upload Documents":
     uploaded_file = st.file_uploader("Upload your medical documents (PDF or TXT)", type=['pdf', 'txt'], accept_multiple_files=False)
     if uploaded_file:
         st.success(f"File uploaded: {uploaded_file.name}")
-        st.info("Extracting and analyzing...")
-        raw_text = extract_text(uploaded_file)
+        with st.spinner("Extracting and analyzing with Gemini..."):
+            raw_text = extract_text(uploaded_file)
         st.session_state.document_text = raw_text
         st.subheader("📄 Extracted Text Preview")
         # Replace text_area with markdown display
